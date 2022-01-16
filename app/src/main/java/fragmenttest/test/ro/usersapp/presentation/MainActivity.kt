@@ -1,10 +1,10 @@
 package fragmenttest.test.ro.usersapp.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import fragmenttest.test.ro.usersapp.R
-
+import fragmenttest.test.ro.usersapp.presentation.usersList.UsersFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +16,12 @@ class MainActivity : AppCompatActivity() {
             setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
             setDisplayHomeAsUpEnabled(true)
             setHomeButtonEnabled(true)
+        }
+
+        supportFragmentManager.beginTransaction().apply {
+            val fragment = UsersFragment.newInstance()
+            add(R.id.fragmentLayout, fragment, UsersFragment.TAG)
+            commitNowAllowingStateLoss()
         }
     }
 
