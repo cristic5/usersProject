@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.33229166666666665" />
         <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.33229166666666665" />
         <entry key="app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1640625" />
+        <entry key="app/src/main/res/drawable/ic_baseline_star_border_24.xml" value="0.4041666666666667" />
+        <entry key="app/src/main/res/drawable/list_item_drawable.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/drawable/rounded_layout.xml" value="0.4041666666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20572916666666666" />
         <entry key="app/src/main/res/layout/list_item_user.xml" value="0.3880208333333333" />

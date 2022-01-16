@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import fragmenttest.test.ro.usersapp.R
-import fragmenttest.test.ro.usersapp.presentation.UserModel
 import fragmenttest.test.ro.usersapp.presentation.helpers.inflate
+import fragmenttest.test.ro.usersapp.presentation.models.UserModel
 import java.text.DateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class UsersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -28,7 +26,7 @@ class UsersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val item = list[position]
         (holder as ViewHolder).apply {
 
-            if (item.imageUrl.isNullOrBlank()) {
+            if (item.imageUrl.isNullOrBlank().not()) {
                 thumbnail.visibility = View.VISIBLE
                 userInitialsView.visibility = View.GONE
                 userInitialsText.visibility = View.GONE
@@ -38,9 +36,10 @@ class UsersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     .placeholder(ColorDrawable(Color.RED))
                     .transform(CircleCrop())
                     .into(thumbnail)
+
             } else {
                 Glide.with(thumbnail.context).clear(thumbnail)
-                thumbnail.visibility = View.GONE
+                thumbnail.visibility = View.INVISIBLE
                 userInitialsView.visibility = View.VISIBLE
                 userInitialsText.visibility = View.VISIBLE
 
@@ -55,11 +54,13 @@ class UsersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     item.country
                 )
             }
-            time.text = DateFormat
-                .getTimeInstance(DateFormat.SHORT)
-                .format(
-                    Date(item.time)
-                )
+            if (item.time != null) {
+                time.text = DateFormat
+                    .getTimeInstance(DateFormat.SHORT)
+                    .format(item.time)
+            } else {
+                time.text = "##:##"
+            }
 
             attachment.visibility = if (item.shouldShowAttachment) {
                 View.VISIBLE
@@ -76,10 +77,16 @@ class UsersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val name: TextView = view.findViewById(R.id.name)
         val details: TextView = view.findViewById(R.id.details)
         val time: TextView = view.findViewById(R.id.time)
-        val attachment: TextView = view.findViewById(R.id.attachment)
+        val attachment: ImageView = view.findViewById(R.id.attachment)
     }
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+
+    fun addItems(list: List<UserModel>) {
+        this.list.addAll(list)
+        notifyItemRangeInserted(0, list.size)
     }
 }

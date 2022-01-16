@@ -3,10 +3,11 @@ package fragmenttest.test.ro.usersapp.presentation
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import fragmenttest.test.ro.usersapp.R
 import fragmenttest.test.ro.usersapp.presentation.usersList.UsersFragment
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
