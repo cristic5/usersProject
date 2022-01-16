@@ -3,4 +3,5 @@
     <string name="search">Search</string>
     <string name="empty_state">I didn\'t find any users</string>
     <string name="user_image">User image</string>
+    <string name="user_details">%1$s years from %2$s</string>
 </resources>
