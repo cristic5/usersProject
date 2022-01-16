@@ -2,4 +2,5 @@
     <string name="app_name">UsersApp</string>
     <string name="search">Search</string>
     <string name="empty_state">I didn\'t find any users</string>
+    <string name="user_image">User image</string>
 </resources>
