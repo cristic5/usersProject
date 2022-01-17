@@ -23,12 +23,12 @@ data class UserDto(
         val time = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault())
         return UserModel(
             id = id.value,
-            name = "${name.title} ${name.first} ${name.last}",
+            name = "${name.first} ${name.last}",
             age = dob.age,
             country = nat,
             time = time.parse(registered.date),
-            imageUrl = if (phone.contains("5")) null else picture.thumbnail,
-            shouldShowAttachment = gender == "female"
+            imageUrl = if (phone.contains("5")) null else picture.thumbnail, //random -> test name initials
+            shouldShowAttachment = gender == "female" //random -> test attachment icon
         )
     }
 }
