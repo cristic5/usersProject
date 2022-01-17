@@ -23,8 +23,7 @@ tools:context=".presentation.usersList.UsersFragment">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:showLoading="@{viewModel.showLoading}"
-        android:visibility="@{viewModel.emptyList ? View.GONE : View.VISIBLE}">
+        android:visibility="@{viewModel.showEmptyList ? View.GONE : View.VISIBLE}">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -45,7 +44,7 @@ tools:context=".presentation.usersList.UsersFragment">
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:text="@string/empty_state"
-        android:visibility="@{viewModel.emptyList ? View.VISIBLE : View.GONE}"
+        android:visibility="@{viewModel.showEmptyList ? View.VISIBLE : View.GONE}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

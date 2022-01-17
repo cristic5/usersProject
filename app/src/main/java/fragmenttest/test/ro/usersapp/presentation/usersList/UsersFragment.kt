@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -53,8 +54,10 @@ class UsersFragment : Fragment() {
     private fun setUp() {
 
         binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            this.adapter = userAdapter
+            val layoutM = LinearLayoutManager(activity)
+
+            layoutManager = layoutM
+            adapter = userAdapter
             addItemDecoration(
                 DividerItemDecoration(activity, LinearLayout.VERTICAL).apply {
                     val drawable =
@@ -62,6 +65,11 @@ class UsersFragment : Fragment() {
                     setDrawable(requireNotNull(drawable))
                 }
             )
+            addOnScrollListener(object : PaginationListener(layoutM) {
+                override fun loadMoreItems() {
+                    viewModel.getUsers()
+                }
+            })
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
@@ -70,6 +78,28 @@ class UsersFragment : Fragment() {
                     userAdapter.addItems(it)
                 }
             }
+        }
+
+        viewModel.apply {
+            showLoading.observe(this@UsersFragment, {
+                binding.refreshLayout.isRefreshing = it
+            })
+
+            showError.observe(this@UsersFragment, {
+                if (it) {
+                    Toast.makeText(context, getString(R.string.error), Toast.LENGTH_LONG).show()
+                }
+            })
+
+            resetAdapter.observe(this@UsersFragment, {
+                if (it) {
+                    userAdapter.clearData()
+                }
+            })
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            viewModel.resetPageAndReloadUsers()
         }
 
         viewModel.getUsers()

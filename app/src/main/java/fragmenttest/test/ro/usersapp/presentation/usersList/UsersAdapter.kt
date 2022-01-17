@@ -86,7 +86,16 @@ class UsersAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     fun addItems(list: List<UserModel>) {
-        this.list.addAll(list)
-        notifyItemRangeInserted(0, list.size)
+        if (list.isNotEmpty()) {
+            val currentMaxPosition = this.list.size
+            this.list.addAll(list)
+            notifyItemRangeInserted(currentMaxPosition, this.list.size)
+        }
+    }
+
+    fun clearData() {
+        val currentMaxPosition = this.list.size
+        this.list.clear()
+        notifyItemRangeRemoved(0, currentMaxPosition)
     }
 }
